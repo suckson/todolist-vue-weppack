@@ -2,9 +2,9 @@
     <div class="helper">
         <span class="left">{{unFinishedTodoLength}} item left</span>
         <span class="tabs">
-            <span v-for="state in states" :key="state" :class="[state,filter==state ? 'actived':'']" @click='toggleFilter(state)'>{{state}}</span>
+            <span v-for="state in states" :key="state" :class="[state,filter===state ? 'actived':'']" @click="toggleFilter(state)">{{state}}</span>
         </span>
-        <span class="clear" @click="clearAllComplete()">Clear Completed</span>
+        <span class="clear"  @click="clearAllCompleted()">Clear Completed</span>
     </div>
 </template>
 
@@ -26,17 +26,15 @@
             }
         },
         methods:{
-            toggleFilter(state) {
-                this.$emit('toggle', state);
+            toggleFilter(state){
+                this.$emit('toggle',state);
             },
             clearAllCompleted() {
                 this.$emit('clearAllCompleted');
-
             }
-
         },
         computed:{
-            unFinishedTodoLength() {
+            unFinishedTodoLength() {//剩余的todulength
                 return this.todos.filter(todo => !todo.completed).length;
             }
         }
@@ -88,5 +86,4 @@
             }
         }
     }
-
 </style>

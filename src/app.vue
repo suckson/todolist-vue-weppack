@@ -13,7 +13,7 @@ import Todo from './todu/todo.vue'
 export default {
     data () {
         return {
-            text:"aaaaaaabc"
+            text:""
         }
     },
     components:{

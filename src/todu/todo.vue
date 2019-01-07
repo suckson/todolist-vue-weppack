@@ -1,8 +1,8 @@
 <template lang="">
     <section class='real-app'>
-        <input  type = "text"class = "add-input"autofocus = "autofocus" placeholder = "接下去要做什么？"@keyup.enter = "addTodo" />
-        <Item  v-for="todo in filteredTodos"  :key="todo.id" @del="deleteTodo()"></Item>
-        <Tabs :filter="filter" :todos="todos" @toggle="toggleFilter" @clearAllCompleted="clearAllCompleted"/>
+        <input  type = "text" class = "add-input" autofocus = "autofocus" placeholder = "接下去要做什么？" @keyup.enter = "addTodo($event)" />
+        <Item  v-for="todo in filteredTodos"  :key="todo.id" :todo="todo" @del="deleteTodo(id)" ></Item>
+        <Tabs :filter="filter"  @toggle="toggleFilter" :todos="todos" @clearAllCompleted="clearAllCompleted"/>
     </section>
 </template>
 <script>
@@ -12,11 +12,6 @@ let id = 0;
 export default {
     data(){
       return{
-        //   todo:{
-        //       id:0,
-        //       content:'this is todo',
-        //       computed: false
-        //   },
           filter: 'all',
           todos: []
       }
@@ -37,10 +32,13 @@ export default {
         deleteTodo(id){
            this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
         },
+        toggleFilter(state){
+            console.log(state)
+            this.filter = state
+        },
         clearAllCompleted() {
                 // 给todos赋一个新的值（即todo.completed为false的值）
                 this.todos = this.todos.filter(todo => todo.completed === false)
-
         }
     },
     components:{
@@ -52,11 +50,9 @@ export default {
                 if (this.filter === 'all') {
                     return this.todos;
                 }
-                const completed = this.filter === 'completed';
-
+                const completed = this.filter === 'completed'
                 // 将todos数组中，completed为true的值过滤出来，并返回一个新数组
                 return this.todos.filter(todo => completed === todo.completed);
-
             }
         }
 }
