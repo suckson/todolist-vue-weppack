@@ -7,9 +7,9 @@
     </div>
 </template>
 <script>
-import Header from './todu/haeder.vue'
-import Footer from './todu/footer.jsx'
-import Todo from './todu/todo.vue'
+import Header from './layout/haeder.vue'
+import Footer from './layout/footer.jsx'
+import Todo from './views/todo/todo.vue'
 export default {
     data () {
         return {
