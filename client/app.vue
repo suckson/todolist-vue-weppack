@@ -10,17 +10,18 @@
 import Header from './layout/haeder.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
+// console.log(Header)
 export default {
-    data () {
-        return {
-            text:""
-        }
-    },
-    components:{
-        Header,
-        Footer,
-        Todo,
+  data () {
+    return {
+      text: ''
     }
+  },
+  components: {
+    Header,
+    Footer,
+    Todo
+  }
 }
 </script>
 <style lang='stylus' scoped>

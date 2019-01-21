@@ -10,34 +10,34 @@
 
 <script>
     export default {
-        data(){
-            return{
-                states: ['all', 'active', 'completed']
-            }
-        },
-        props:{
-             filter: {
-                type: String,
-                required: true,
-            },
-            todos: {
-                type: Array,
-                required: true
-            }
-        },
-        methods:{
-            toggleFilter(state){
-                this.$emit('toggle',state);
-            },
-            clearAllCompleted() {
-                this.$emit('clearAllCompleted');
-            }
-        },
-        computed:{
-            unFinishedTodoLength() {//剩余的todulength
-                return this.todos.filter(todo => !todo.completed).length;
-            }
+      data () {
+        return {
+          states: ['all', 'active', 'completed']
         }
+      },
+      props: {
+        filter: {
+          type: String,
+          required: true
+        },
+        todos: {
+          type: Array,
+          required: true
+        }
+      },
+      methods: {
+        toggleFilter (state) {
+          this.$emit('toggle', state)
+        },
+        clearAllCompleted () {
+          this.$emit('clearAllCompleted')
+        }
+      },
+      computed: {
+        unFinishedTodoLength () { // 剩余的todulength
+          return this.todos.filter(todo => !todo.completed).length
+        }
+      }
     }
 </script>
 

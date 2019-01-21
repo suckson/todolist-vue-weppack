@@ -8,17 +8,17 @@
 
 <script>
     export default {
-        props: {
-            todo: {
-                type: Object,
-                require: true
-            }
-        },
-        methods:{
-            deleteTodo(){
-                this.$emit('del', this.todo.id)
-            }
+      props: {
+        todo: {
+          type: Object,
+          require: true
         }
+      },
+      methods: {
+        deleteTodo () {
+          this.$emit('del', this.todo.id)
+        }
+      }
     }
 </script>
 
