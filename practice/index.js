@@ -1,5 +1,5 @@
 // import Vue from 'vue'
-import './computed/index.js'
+import './compoent/index.js'
 // const Div = document.createElement('div')
 // document.body.append(Div)
 /*
