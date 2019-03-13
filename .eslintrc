@@ -5,6 +5,7 @@
     ],
     "parser": "babel-eslint",
     "rules": {
-    "no-new": "off"
+    "no-new": "off",
+    "no-unused-vars":0
     }
 }

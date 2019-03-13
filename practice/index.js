@@ -1,5 +1,6 @@
 // import Vue from 'vue'
-import './compoent/index.js'
+// import './compoent/index.js'
+import './rander/rander.js'
 // const Div = document.createElement('div')
 // document.body.append(Div)
 /*
