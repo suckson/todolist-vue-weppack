@@ -1,17 +1,23 @@
 <template>
     <div id='app'>
+        <p>{{fullName}}{{Counter}}</p>
         <div id="cover"></div>
         <Header/>
-        <Todo/>
+        <router-view/>
+        <!-- <Todo/> -->
         <Footer/> 
     </div>
 </template>
 <script>
+import {
+  mapState,
+  mapGetters
+} from 'vuex'
 import Header from './layout/haeder.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
-// console.log(Header)
 export default {
+  name: 'aaa',
   data () {
     return {
       text: ''
@@ -21,6 +27,23 @@ export default {
     Header,
     Footer,
     Todo
+  },
+  mounted () {
+    console.log(this.$store)
+    let i = 1
+    setInterval(() => {
+      this.$store.commit('updateCount', i++)
+    }, 2000)
+  },
+  computed: {
+    ...mapState(
+      {
+        Counter: 'count'
+      }
+    ),
+    fullName () {
+      return this.$store.getters.fullName
+    }
   }
 }
 </script>

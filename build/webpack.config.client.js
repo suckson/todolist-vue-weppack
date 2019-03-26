@@ -113,7 +113,8 @@ if (isDev) {
 
 config.resolve = {
   alias: {
-    'model': path.join(__dirname, '../client/model/client-model.js')
+    'model': path.join(__dirname, '../client/model/client-model.js'),
+    'vue': path.join(__dirname, '../node_modules/vue/dist/vue.js')
   }
 }
 

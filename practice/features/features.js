@@ -45,7 +45,7 @@ new Vue({
 			enumerable: true
 		})
     return {
-      yeye: this, 
+      yeye: this,    
       data
     }
   },
