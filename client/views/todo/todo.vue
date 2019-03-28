@@ -10,6 +10,18 @@ import Item from './items.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
+  beforeRouteEnter (to, form, next) {
+    console.log('进入路由')
+    next()
+  },
+  beforeRouteUpdate (to, form, next) {
+    console.log('genxin')
+    next()
+  },
+  beforeRouteLeave (to, form, next) {
+    console.log('路由离开')
+    next()
+  },
   data () {
     return {
       filter: 'all',

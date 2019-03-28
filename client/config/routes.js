@@ -10,11 +10,17 @@ export default [
   {
     path: '/app',
     name: 'app',
-    component: Todo
+    components: {
+      default: Todo,
+      a: Login
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    components: {
+      default: Login,
+      a: Todo
+    }
   }
 ]

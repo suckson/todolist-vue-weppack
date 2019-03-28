@@ -3,15 +3,20 @@
         <p>{{fullName}}{{Counter}}</p>
         <div id="cover"></div>
         <Header/>
+        <transition name="fade">
         <router-view/>
+        </transition>
         <!-- <Todo/> -->
         <Footer/> 
+        <router-view name="a"/>
     </div>
 </template>
 <script>
 import {
   mapState,
-  mapGetters
+  mapGetters,
+  mapMutations,
+  mapActions
 } from 'vuex'
 import Header from './layout/haeder.vue'
 import Footer from './layout/footer.jsx'
@@ -28,12 +33,17 @@ export default {
     Footer,
     Todo
   },
+  methods: {
+    ...mapActions(['']),
+    ...mapMutations([''])
+  },
   mounted () {
     console.log(this.$store)
     let i = 1
-    setInterval(() => {
-      this.$store.commit('updateCount', i++)
-    }, 2000)
+    this.$store.dispatch('updateCountAsync', {
+      num: 10,
+      time: 1000
+    })
   },
   computed: {
     ...mapState(

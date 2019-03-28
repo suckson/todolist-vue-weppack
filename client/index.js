@@ -17,6 +17,20 @@ Vue.use(Vuex)
 const router = createRouter()
 const store = createStore()
 
+router.beforeEach((to, from, next) => {
+  console.log('before beforeResolve invoked')
+  next()
+})
+
+router.beforeResolve((to, from, next) => {
+  console.log('before beforeResolve invoked')
+  next()
+})
+
+router.afterEach((to, from) => {
+  console.log('before beforeResolve invoked')
+})
+
 new Vue({
   render: (h) => h(App),
   router,
