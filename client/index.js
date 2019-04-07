@@ -7,6 +7,7 @@ import App from './app.vue'
 
 import createRouter from './config/router.js'
 import createStore from './store/store.js'
+import mutation from './store/mutation/mutation'
 
 const root = document.createElement('div')
 document.body.appendChild(root)
@@ -16,6 +17,16 @@ Vue.use(Vuex)
 
 const router = createRouter()
 const store = createStore()
+store.registerModule('c', { // 动态去添加store注册一个module
+  state: {
+    text: 3
+  }
+})
+store.unregisterModule('c') // 解绑一个module
+// store.watch( (state) => state.count + 1)
+store.subscribe((mutation, state) => {
+  console.log(mutation.type)
+})
 
 router.beforeEach((to, from, next) => {
   console.log('before beforeResolve invoked')
@@ -36,27 +47,18 @@ class Bbb {
     this.count = count
   }
   getaaa () {
-    bar('aaa')
     return this.aaa + 50
   }
-  foo (baz) {
-    console.log('chai')
-    bar.call(this, baz)
-  }
-}
-function bar (baz) {
-  // eslint-disable-next-line no-return-assign
-  return this.snaf = baz
 }
 var cc = new Bbb(15, 6)
 
-// eslint-disable-next-line no-proto
 console.log(cc.getaaa())
 
 function aaa (x, y, ...arg) {
   console.log(arg)
 }
 aaa(4, 'aaaa', 666, 777, 555)
+
 new Vue({
   render: (h) => h(App),
   router,

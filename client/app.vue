@@ -53,7 +53,8 @@ export default {
     ),
     fullName () {
       return this.$store.getters.fullName
-    }
+    },
+    ...mapGetters
   }
 }
 </script>

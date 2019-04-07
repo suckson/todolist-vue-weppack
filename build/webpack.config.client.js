@@ -4,6 +4,8 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const baseConfig = require('./webpack.config.base')
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
+const cdnConfig = require('../app.config').cdn
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -14,32 +16,30 @@ const defaultPluins = [
     }
   }),
   new HTMLPlugin({
-    // template: path.join(__dirname,'/index.html')
-  })
+    template: path.join(__dirname, 'template.html')
+  }),
+  new VueClientPlugin()
 ]
 
 const devServer = {
-  port: 8080,
+  port: 8000,
   host: '0.0.0.0',
   overlay: {
     errors: true
   },
-  // historyFallback:{
-  //     //前段重定向
-  // },
+  headers: { 'Access-Control-Allow-Origin': '*' },
+  historyApiFallback: {
+    index: '/public/index.html'
+  },
+  proxy: {
+    '/api': 'http://127.0.0.1:3333',
+    '/user': 'http://127.0.0.1:3333'
+  },
   hot: true
 }
 
 let config
 
-// eslint-disable-next-line no-unused-vars
-let cssMoudle = { // cssmoudle的配置
-  loader: 'css-loader',
-  options: {
-    module: true,
-    localIdentName: isDev ? '[path]-[name]-[hash:base64:5]' : '[hash:base64:5]'
-  }
-}
 if (isDev) {
   config = merge(baseConfig, {
     devtool: '#cheap-module-eval-source-map',
@@ -50,7 +50,6 @@ if (isDev) {
           use: [
             'vue-style-loader',
             'css-loader',
-
             {
               loader: 'postcss-loader',
               options: {
@@ -71,12 +70,12 @@ if (isDev) {
 } else {
   config = merge(baseConfig, {
     entry: {
-      app: path.join(__dirname, '../client/index.js'),
+      app: path.join(__dirname, '../client/client-entry.js'),
       vendor: ['vue']
     },
     output: {
-      filename: '[name].[chunkhash:8].js'
-    // publicPath: cdnConfig.host
+      filename: '[name].[chunkhash:8].js',
+      publicPath: cdnConfig.host
     },
     module: {
       rules: [
@@ -113,8 +112,7 @@ if (isDev) {
 
 config.resolve = {
   alias: {
-    'model': path.join(__dirname, '../client/model/client-model.js'),
-    'vue': path.join(__dirname, '../node_modules/vue/dist/vue.js')
+    'model': path.join(__dirname, '../client/model/client-model.js')
   }
 }
 
