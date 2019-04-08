@@ -6,6 +6,7 @@ const baseConfig = require('./webpack.config.base')
 const VueServerPlugin = require('vue-server-renderer/server-plugin')
 
 let config
+
 const isDev = process.env.NODE_ENV === 'development'
 
 const plugins = [
@@ -15,9 +16,11 @@ const plugins = [
     'process.env.VUE_ENV': '"server"'
   })
 ]
+
 if (isDev) {
   plugins.push(new VueServerPlugin())
 }
+
 config = merge(baseConfig, {
   target: 'node',
   entry: path.join(__dirname, '../client/server-entry.js'),
@@ -32,27 +35,26 @@ config = merge(baseConfig, {
     rules: [
       {
         test: /\.styl/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          'stylus-loader'
-        ]
+        use: ExtractPlugin.extract({
+          fallback: 'vue-style-loader',
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            'stylus-loader'
+          ]
+        })
       }
     ]
   },
   plugins
 })
+
 config.resolve = {
-  alias: {
-    'model': path.join(__dirname, '../client/model/server-model.js')
-  }
 }
 
 module.exports = config

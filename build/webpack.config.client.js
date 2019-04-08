@@ -16,7 +16,7 @@ const defaultPluins = [
     }
   }),
   new HTMLPlugin({
-    template: path.join(__dirname, 'template.html')
+    template: path.join(__dirname, `./template.html`)
   }),
   new VueClientPlugin()
 ]
@@ -32,8 +32,7 @@ const devServer = {
     index: '/public/index.html'
   },
   proxy: {
-    '/api': 'http://127.0.0.1:3333',
-    '/user': 'http://127.0.0.1:3333'
+    '/api': 'http://127.0.0.1:3333'
   },
   hot: true
 }
@@ -74,8 +73,7 @@ if (isDev) {
       vendor: ['vue']
     },
     output: {
-      filename: '[name].[chunkhash:8].js',
-      publicPath: cdnConfig.host
+      filename: '[name].[chunkhash:8].js'
     },
     module: {
       rules: [
@@ -112,7 +110,7 @@ if (isDev) {
 
 config.resolve = {
   alias: {
-    'model': path.join(__dirname, '../client/model/client-model.js')
+    'vue': path.join(__dirname, '../node_modules/vue/dist/vue.js')
   }
 }
 
