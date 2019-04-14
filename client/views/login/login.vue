@@ -5,6 +5,9 @@
 </template>
 <script>
 export default {
+  metaInfo: {
+    title: '登录页面'
+  },
   data () {
     return {
       aa: 'chaiehng'

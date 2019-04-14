@@ -3,9 +3,9 @@ const send = require('koa-send')
 const path = require('path')
 const koaBody = require('koa-body')
 const koaSession = require('koa-session')
-
+const apiRouter = require('./rooters/api')
+const staticRouter = require('./rooters/static')
 const app = new Koa()
-
 app.use(koaSession({
   key: 'v-ssr-id',
   maxAge: 2 * 60 * 60 * 1000
@@ -37,8 +37,15 @@ app.use(async (ctx, next) => {
 })
 
 app.use(koaBody())
+app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
 
-let pageRouter = require('./rooters/dev-ssr')
+let pageRouter
+if (isDev) {
+  pageRouter = require('./rooters/dev-ssr')
+} else {
+  pageRouter = require('./rooters/ssr')
+}
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
 
 const HOST = process.env.HOST || '0.0.0.0'

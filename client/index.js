@@ -8,7 +8,6 @@ import App from './app.vue'
 import createRouter from './config/router.js'
 import createStore from './store/store.js'
 import mutation from './store/mutation/mutation'
-
 const root = document.createElement('div')
 document.body.appendChild(root)
 
@@ -41,23 +40,6 @@ router.beforeResolve((to, from, next) => {
 router.afterEach((to, from) => {
   console.log('before beforeResolve invoked')
 })
-class Bbb {
-  aaa = 10
-  constructor (count, name) {
-    this.count = count
-  }
-  getaaa () {
-    return this.aaa + 50
-  }
-}
-var cc = new Bbb(15, 6)
-
-console.log(cc.getaaa())
-
-function aaa (x, y, ...arg) {
-  console.log(arg)
-}
-aaa(4, 'aaaa', 666, 777, 555)
 
 new Vue({
   render: (h) => h(App),

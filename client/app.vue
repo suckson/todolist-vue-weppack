@@ -1,14 +1,11 @@
 <template>
     <div id='app'>
-        <p>{{fullName}}{{Counter}}</p>
         <div id="cover"></div>
         <Header/>
-        <transition name="fade">
-        <router-view/>
+        <transition name="fade" mode="out-in">
+        <router-view />
         </transition>
-        <!-- <Todo/> -->
-        <Footer/> 
-        <router-view name="a"/>
+        <Footer/>
     </div>
 </template>
 <script>
@@ -22,11 +19,14 @@ import Header from './layout/haeder.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
 export default {
-  name: 'aaa',
+  name: 'App',
   data () {
     return {
       text: ''
     }
+  },
+  metaInfo: {
+    title: 'suckson Todo'
   },
   components: {
     Header,
@@ -38,11 +38,15 @@ export default {
     ...mapMutations([''])
   },
   mounted () {
-    console.log(this.$store)
-    let i = 1
-    this.$store.dispatch('updateCountAsync', {
-      num: 10,
-      time: 1000
+    // console.log(this.$store)
+    // let i = 1
+    // this.$store.dispatch('updateCountAsync', {
+    //   num: 10,
+    //   time: 1000
+    // })
+    this.$notify({
+      content: 'chaiehng',
+      btn: '你好'
     })
   },
   computed: {

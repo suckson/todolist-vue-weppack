@@ -16,7 +16,7 @@ const defaultPluins = [
     }
   }),
   new HTMLPlugin({
-    template: path.join(__dirname, `./template.html`)
+    template: path.join(__dirname, 'template.html')
   }),
   new VueClientPlugin()
 ]
@@ -32,7 +32,8 @@ const devServer = {
     index: '/public/index.html'
   },
   proxy: {
-    '/api': 'http://127.0.0.1:3333'
+    '/api': 'http://127.0.0.1:3333',
+    '/user': 'http://127.0.0.1:3333'
   },
   hot: true
 }
@@ -110,7 +111,7 @@ if (isDev) {
 
 config.resolve = {
   alias: {
-    'vue': path.join(__dirname, '../node_modules/vue/dist/vue.js')
+    'model': path.join(__dirname, '../client/model/client-model.js')
   }
 }
 
