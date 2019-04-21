@@ -1,13 +1,18 @@
 <template lang="">
     <section class='real-app'>
+        <div class="tab-container">
+          <tabs :value = "filter" @change="handleChangeTab">
+            <tab :label="tab" :index="tab" v-for="tab in stats" :key="tab" />
+          </tabs>
+        </div> 
         <input  type = "text" class = "add-input" autofocus = "autofocus" placeholder = "接下去要做什么？" @keyup.enter = "addTodo($event)" />
         <Item  v-for="todo in filteredTodos"  :key="todo.id" :todo="todo" @del="deleteTodo(id)" ></Item>
-        <Tabs :filter="filter"  @toggle="toggleFilter" :todos="todos" @clearAllCompleted="clearAllCompleted"/>
+        <Helper :filter="filter"  :todos="todos" @clearAllCompleted="clearAllCompleted"/>
     </section>
 </template>
 <script>
 import Item from './items.vue'
-import Tabs from './tabs.vue'
+import Helper from './helper.vue'
 let id = 0
 export default {
   beforeRouteEnter (to, form, next) {
@@ -25,7 +30,8 @@ export default {
   data () {
     return {
       filter: 'all',
-      todos: []
+      todos: [],
+      stats: ['all', 'active', 'completed']
     }
   },
   methods: {
@@ -44,18 +50,17 @@ export default {
     deleteTodo (id) {
       this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
     },
-    toggleFilter (state) {
-      console.log(state)
-      this.filter = state
-    },
     clearAllCompleted () {
       // 给todos赋一个新的值（即todo.completed为false的值）
       this.todos = this.todos.filter(todo => todo.completed === false)
+    },
+    handleChangeTab (index) {
+      this.filter = index
     }
   },
   components: {
     Item,
-    Tabs
+    Helper
   },
   computed: {
     filteredTodos () {
@@ -90,4 +95,7 @@ export default {
     font-smmothing antialiased
     padding 16px 16px 16px 36px
     box-shadow inset 0 -2px 1px rgba(0, 0, 0, 0.03)
+.tab-container
+    background #ffffff
+    padding 0px 15px
 </style>

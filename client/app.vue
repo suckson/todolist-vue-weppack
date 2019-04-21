@@ -5,6 +5,7 @@
         <transition name="fade" mode="out-in">
         <router-view />
         </transition>
+        <button @click="clickme">click me</button>
         <Footer/>
     </div>
 </template>
@@ -35,7 +36,13 @@ export default {
   },
   methods: {
     ...mapActions(['']),
-    ...mapMutations([''])
+    ...mapMutations(['']),
+    clickme () {
+      this.$notify({
+        content: 'chaiehng',
+        btn: '你好'
+      })
+    }
   },
   mounted () {
     // console.log(this.$store)
@@ -44,10 +51,6 @@ export default {
     //   num: 10,
     //   time: 1000
     // })
-    this.$notify({
-      content: 'chaiehng',
-      btn: '你好'
-    })
   },
   computed: {
     ...mapState(
