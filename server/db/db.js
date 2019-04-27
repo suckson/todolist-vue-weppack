@@ -1,10 +1,10 @@
 const sha1 = require('sha1')
 const axios = require('axios')
 
-const className = 'todo'
+const className = ''
 
 const request = axios.create({
-  baseURL: 'http://a.apicload.com/mcm.api'
+  baseURL: 'http://d.apicload.com/mcm/api'
 })
 
 const createError = (code, resp) => {
@@ -25,7 +25,7 @@ module.exports = (appId, appkey) => {
     const now = Date.now()
     return {
       'X-APICloud-AppId': appId,
-      'X-APICloud-AppKey': appkey
+      'X-APICloud-AppKey': `${sha1(`${appId}UZ${appkey}UZ${now}`)}.${now}`
     }
   }
   return {

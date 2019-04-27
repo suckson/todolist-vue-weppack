@@ -5,6 +5,10 @@ const koaBody = require('koa-body')
 const koaSession = require('koa-session')
 const apiRouter = require('./rooters/api')
 const staticRouter = require('./rooters/static')
+const createdDb = require('./db/db')
+const config = require('../app.config')
+const db = createdDb(config.db.appId, config.db.appKey)
+
 const app = new Koa()
 app.use(koaSession({
   key: 'v-ssr-id',
@@ -28,6 +32,10 @@ app.use(async (ctx, next) => {
   }
 })
 
+app.use(async (ctx, next) => {
+  ctx.db = db
+  next()
+})
 app.use(async (ctx, next) => {
   if (ctx.path === '/favicon.ico') {
     await send(ctx, '/favicon.ico', { root: path.join(__dirname, '../') })
