@@ -10,7 +10,7 @@ const config = {
   entry: path.join(__dirname, 'src/index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, 'public')
   },
   module: {
     rules: [
@@ -116,7 +116,7 @@ if (isDev) {
     }),
     new webpack.optimize.CommonsChunklPlugin({
         name:'runtime'
-    })
+    }),
     // 将类库文件单独打包出来
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'

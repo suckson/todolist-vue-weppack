@@ -15,12 +15,12 @@ const plugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'
   }),
-  new VueServerPlugin()
+  //new VueServerPlugin()
 ]
 
-// if (isDev) {
-//   plugins.push(new VueServerPlugin())
-// }
+if (isDev) {
+  plugins.push(new VueServerPlugin())
+}
 
 config = merge(baseConfig, {
   target: 'node',
