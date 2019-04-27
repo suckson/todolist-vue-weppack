@@ -34,7 +34,7 @@ app.use(async (ctx, next) => {
 
 app.use(async (ctx, next) => {
   ctx.db = db
-  next()
+  await next()
 })
 app.use(async (ctx, next) => {
   if (ctx.path === '/favicon.ico') {
