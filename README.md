@@ -7,8 +7,8 @@
 
 Suckson todo is my first vue app, using the [Vue]() library. It plays requested songs from YouTube and other services into a Discord server (or multiple servers). Besides, if the queue becomes empty MusicBot will play through a list of existing songs with configuration. The bot features a permission system allowing owners to restrict commands to certain people. As well as playing songs, MusicBot is capable of streaming live media into a voice channel (experimental).
 
-![Main](https://i.imgur.com/EZljY52.png)
-![Main](https://i.imgur.com/EZljY52.png)
+![Main](https://github.com/Suckson/todolist-vue-weppack/blob/master/docs/images/001.png)
+![Main](https://github.com/Suckson/todolist-vue-weppack/blob/master/docs/images/002.png)
 
 ## Setup
 Setting up the MusicBot is relatively painless - just follow one of the [guides](https://just-some-bots.github.io/MusicBot/). After that, configure the bot to ensure its connection to Discord.
