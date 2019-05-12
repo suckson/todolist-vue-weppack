@@ -49,7 +49,7 @@ export default {
   bottom -2px
   cursor pointer
   &.active
-    border-bottom 2px solid blue
+    border-bottom 2px solid #ed8080
   &:last-child
     margin-right 0
 </style>

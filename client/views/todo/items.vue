@@ -1,8 +1,8 @@
-<template>
+<template> 
     <div :class="['todo-item',todo.completed ? 'completed':'']">
-        <input type="checkbox" class="toggle" v-model="todo.completed"/>
-        <label for="">{{todo.content}}</label>
-        <button class='destroy' @click="deleteTodo(id)"></button>
+    <input type="checkbox" class="toggle" :checked="todo.completed" @click="handleToggle">
+    <label>{{todo.content}}</label>
+    <button class="destory" @click="deleteTodo"></button>
     </div>
 </template>
 
@@ -11,15 +11,19 @@
       props: {
         todo: {
           type: Object,
-          require: true
+          required: true
         }
       },
       methods: {
         deleteTodo () {
           this.$emit('del', this.todo.id)
+        },
+        handleToggle (e) {
+          e.preventDefault()
+          this.$emit('toggle', this.todo)
         }
-      }
-    }
+  }
+}
 </script>
 
 <style lang='stylus' scoped>
@@ -29,7 +33,7 @@
         font-size 24px
         border-bottom 1px solid rgba(0,0,0,0.06)
         &:hover{
-            .destroy:after{
+            .destory:after{
                 content: '×'
             }
         }
@@ -70,7 +74,7 @@
             content: url('../../assets/images/done.svg')
         }
     }
-    .destroy{
+    .destory{
         position: absolute;
         top: 0;
         right: 10px;

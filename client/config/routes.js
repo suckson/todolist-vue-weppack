@@ -5,7 +5,7 @@ export default [
   {
     path: '/',
     name: 'path',
-    redirect: '/app'
+    redirect: '/login'
   },
   {
     path: '/app',

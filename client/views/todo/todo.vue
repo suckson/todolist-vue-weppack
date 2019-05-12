@@ -5,16 +5,21 @@
             <tab :label="tab" :index="tab" v-for="tab in stats" :key="tab" />
           </tabs>
         </div> 
-        <input  type = "text" class = "add-input" autofocus = "autofocus" placeholder = "接下去要做什么？" @keyup.enter = "addTodo($event)" />
-        <Item  v-for="todo in filteredTodos"  :key="todo.id" :todo="todo" @del="deleteTodo(id)" ></Item>
+        <input  type = "text" class = "add-input" autofocus = "autofocus" placeholder = "接下去要做什么？" @keyup.enter="handleAdd" />
+        <div class="todu-content">
+          <item :todo="todo" v-for="todo in filteredTodos" :key="todo.id" @del="deleteTodo" @toggle="toggleTodoState" />
+        </div>
         <Helper :filter="filter"  :todos="todos" @clearAllCompleted="clearAllCompleted"/>
     </section>
 </template>
 <script>
+import {mapState, mapActions} from 'vuex'
 import Item from './items.vue'
 import Helper from './helper.vue'
-let id = 0
 export default {
+  metaInfo: {
+    title: 'The Todo App'
+  },
   beforeRouteEnter (to, form, next) {
     console.log('进入路由')
     next()
@@ -30,32 +35,58 @@ export default {
   data () {
     return {
       filter: 'all',
-      todos: [],
       stats: ['all', 'active', 'completed']
     }
   },
+  props: ['id'],
+  mounted () {
+    // console.log('todo mounted')
+    if (this.todos && this.todos.length < 1) {
+      this.fetchTodos()
+    }
+  },
+  asyncData ({ store, router }) {
+    if (store.state.user) {
+      return store.dispatch('fetchTodos')
+    }
+    router.replace('/login')
+    return Promise.resolve()
+  },
   methods: {
-    addTodo (e) {
-      if (e.target.value.trim()) {
-        this.todos.unshift({
-          id: id++,
-          content: e.target.value.trim(),
-          completed: false
+    ...mapActions(['fetchTodos', 'addTodo', 'deleteTodo', 'updateTodo', 'deleteAllCompleted']),
+    handleAdd (e) {
+      const content = e.target.value.trim()
+      if (!content) {
+        this.$notify({
+          content: '必须输入要做的内容'
         })
-        e.target.value = ''
-      } else {
-        window.alert('傻X，输入不能为空 !-_-')
+        return
       }
+      const todo = {
+        content,
+        completed: false
+      }
+      this.addTodo(todo)
+      e.target.value = ''
     },
-    deleteTodo (id) {
-      this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+    toggleTodoState (todo) {
+      this.updateTodo({
+        id: todo.id,
+        todo: Object.assign({}, todo, {
+          completed: !todo.completed
+        })
+      })
+      console.log(todo)
     },
+    // deleteTodo (id) {
+    //   this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+    // },
     clearAllCompleted () {
-      // 给todos赋一个新的值（即todo.completed为false的值）
-      this.todos = this.todos.filter(todo => todo.completed === false)
+      // this.todos = this.todos.filter(todo => !todo.completed)
+      this.deleteAllCompleted()
     },
-    handleChangeTab (index) {
-      this.filter = index
+    handleChangeTab (value) {
+      this.filter = value
     }
   },
   components: {
@@ -63,6 +94,7 @@ export default {
     Helper
   },
   computed: {
+    ...mapState(['todos']),
     filteredTodos () {
       if (this.filter === 'all') {
         return this.todos
@@ -98,4 +130,21 @@ export default {
 .tab-container
     background #ffffff
     padding 0px 15px
+.todu-content
+    max-height 300px
+    overflow-y auto
+.todu-content::-webkit-scrollbar
+  width: 7px;
+  background-color: #F5F5F5;
+.todu-content::-webkit-scrollbar-thumb {
+  border-radius 10px
+  -webkit-box-shadow inset 0 0 5px rgba(0,0,0,0.2)
+  border-radius 10px;
+  background-image -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(181,163,163)), color-stop(0.72, rgb(181,163,163)), color-stop(0.86, rgb(181,163,163)))
+}
+.todu-content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+} 
 </style>

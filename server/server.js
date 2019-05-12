@@ -4,12 +4,15 @@ const path = require('path')
 const koaBody = require('koa-body')
 const koaSession = require('koa-session')
 const apiRouter = require('./rooters/api')
+const userRouter = require('./rooters/user')
 const staticRouter = require('./rooters/static')
 const createdDb = require('./db/db')
 const config = require('../app.config')
 const db = createdDb(config.db.appId, config.db.appKey)
 
 const app = new Koa()
+
+app.keys = ['vue ssr tech']
 app.use(koaSession({
   key: 'v-ssr-id',
   maxAge: 2 * 60 * 60 * 1000
@@ -46,6 +49,7 @@ app.use(async (ctx, next) => {
 
 app.use(koaBody())
 app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
+app.use(userRouter.routes()).use(userRouter.allowedMethods())
 app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
 
 let pageRouter

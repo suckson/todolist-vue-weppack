@@ -1,24 +1,28 @@
 <template>
     <div id='app'>
         <div id="cover"></div>
+        <div id="loading" v-show="loading">
+          <loading></loading>
+        </div>
         <Header/>
         <transition name="fade" mode="out-in">
         <router-view />
         </transition>
-        <button @click="clickme">click me</button>
+        <!-- <button @click="clickme">click me</button> -->
         <Footer/>
     </div>
 </template>
 <script>
 import {
-  mapState,
-  mapGetters,
-  mapMutations,
-  mapActions
+  mapState
+  // mapGetters,
+  // mapMutations,
+  // mapActions
 } from 'vuex'
 import Header from './layout/haeder.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
+import Loading from './components/loading/loading.vue'
 export default {
   name: 'App',
   data () {
@@ -32,11 +36,12 @@ export default {
   components: {
     Header,
     Footer,
-    Todo
+    // Todo,
+    Loading
   },
   methods: {
-    ...mapActions(['']),
-    ...mapMutations(['']),
+    // ...mapActions(['']),
+    // ...mapMutations(['']),
     clickme () {
       this.$notify({
         content: 'chaiehng',
@@ -53,15 +58,16 @@ export default {
     // })
   },
   computed: {
-    ...mapState(
-      {
-        Counter: 'count'
-      }
-    ),
-    fullName () {
-      return this.$store.getters.fullName
-    },
-    ...mapGetters
+    ...mapState(['loading'])
+    // ...mapState(
+    //   {
+    //     Counter: 'count'
+    //   }
+    // ),
+    // fullName () {
+    //   return this.$store.getters.fullName
+    // },
+    // ...mapGetters
   }
 }
 </script>
