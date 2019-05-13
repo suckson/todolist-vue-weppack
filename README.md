@@ -1,20 +1,40 @@
-# MusicBot
 
-[![GitHub stars](https://img.shields.io/github/stars/Just-Some-Bots/MusicBot.svg)]()
-[![GitHub forks](https://img.shields.io/github/forks/Just-Some-Bots/MusicBot.svg)](https://github.com/Suckson/todolist-vue-weppack/network)
-[![javascript version](https://img.shields.io/badge/python-3.5%2C%203.6%2C%203.7-blue.svg)](https://python.org)
-[![Discord](https://discordapp.com/api/guilds/129489631539494912/widget.png?style=shield)](https://discord.gg/bots)
+[![Build Status](https://img.shields.io/badge/version-1.0-orange.svg)](https://todo.suckson.club)
+[![Build Status](https://img.shields.io/travis/simple-icons/simple-icons/develop.svg)](https://travis-ci.org/simple-icons/simple-icons)
+[![npm version](	https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/simple-icons)
 
-Suckson todo is my first vue app, using the [Vue]() library. It plays requested songs from YouTube and other services into a Discord server (or multiple servers). Besides, if the queue becomes empty MusicBot will play through a list of existing songs with configuration. The bot features a permission system allowing owners to restrict commands to certain people. As well as playing songs, MusicBot is capable of streaming live media into a voice channel (experimental).
+<p align="center">Vue Suckson_todo</p>
+<p align="center">查看在线地址:<a href="https://todo.suckson.culb/">https://todo.suckson.culb/</a>,
+
+Suckson is a [Vue](https://cn.vuejs.org/index.html) application that provides basic day-to-day transaction management. Mainly based on node. Demonstrates the packaging of the basic component's business, as well as some references to server-side rendering.
 
 ![Main](https://github.com/Suckson/todolist-vue-weppack/blob/master/docs/images/001.png)
 ![Main](https://github.com/Suckson/todolist-vue-weppack/blob/master/docs/images/002.png)
 
-## Setup
-Setting up the MusicBot is relatively painless - just follow one of the [guides](https://just-some-bots.github.io/MusicBot/). After that, configure the bot to ensure its connection to Discord.
+## Build Setup
 
-The main configuration file is `config/options.ini`, but it is not included by default. Simply make a copy of `example_options.ini` and rename it to `options.ini`. See `example_options.ini` for more information about configurations.
+``` bash
+# Download or clone it, then install dependencies
+npm install
 
-### Commands
+# Development environment
+npm run dev
 
-There are many commands that can be used with the bot. Most notably, the `play <url>` command (preceded by your command prefix) will download, process, and play a song from YouTube or a similar site. A full list of commands is available [here](https://just-some-bots.github.io/MusicBot/using/commands/ "Commands").
+# Production environment (need to start the node service)
+npm run build
+npm run start
+# Default listening port 3333
+```
+
+### Technology stack
+
+1. ES6
+2. vue Vue-router vuex
+3. node server koa2 
+4. ssr
+5. api-clould
+
+### database Soucer
+
+##### 数据来源：[api-clould](https://www.apicloud.com/)
+##### 服务商:   [qiniu-server](https://www.qiniu.com/)
